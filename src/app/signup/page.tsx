@@ -42,44 +42,90 @@ export default function SignupPage(){
         }
     },[user]);
 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <h1>{loading ? "Processing":"Signup"}</h1>
-            <hr/>
-            <label htmlFor="username">Username</label>
-            <input 
-            className="border border-gray-300 rounded-lg p-2 mb-4 focus:outline-none focus:border-gray-600 "
-            type="text" 
-            id="username" 
-            value={user.username}
-            onChange={(e)=>setUser({...user,username:e.target.value})}
-            placeholder="username"
-            />
-            <label htmlFor="email">Email</label>
-            <input 
-            className="border border-gray-300 rounded-lg p-2 mb-4 focus:outline-none focus:border-gray-600 "
-            type="text" 
-            id="email" 
-            value={user.email}
-            onChange={(e)=>setUser({...user,email:e.target.value})}
-            placeholder="email"
-            />
-            <label htmlFor="password">Password</label>
-            <input 
-            className="border border-gray-300 rounded-lg p-2 mb-4 focus:outline-none focus:border-gray-600"
-            type="password" 
-            id="password" 
-            value={user.password}
-            onChange={(e)=>setUser({...user,password:e.target.value})}
-            placeholder="password"
-            />
-            <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 cursor-pointer"
-            onClick={onSignup}
-            >
-                {buttonDisabled ? "Fill all the details" : "Signup"}
-            </button>
-            <Link href="/login" className="mt-4 text-gray-500 hover:underline">Visit login page </Link>
-        </div>
-    )
+return (
+  <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
+    <div className="w-full max-w-md bg-gray-800/80 backdrop-blur-xl shadow-2xl rounded-2xl p-8">
+      {/* Header */}
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold text-white tracking-tight">
+          {loading ? "Processing..." : "Create an Account"}
+        </h1>
+        {!loading && (
+          <p className="mt-2 text-gray-400 text-sm">
+            Join us and get started today
+          </p>
+        )}
+      </div>
+
+      {/* Username */}
+      <div className="mb-5">
+        <input
+          type="text"
+          id="username"
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
+          className="w-full rounded-lg bg-gray-900/60 p-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+          placeholder="Username"
+        />
+      </div>
+
+      {/* Email */}
+      <div className="mb-5">
+        <input
+          type="email"
+          id="email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          className="w-full rounded-lg bg-gray-900/60 p-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+          placeholder="Email"
+        />
+      </div>
+
+      {/* Password */}
+      <div className="mb-6">
+        <input
+          type="password"
+          id="password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          className="w-full rounded-lg bg-gray-900/60 p-3 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
+          placeholder="Password"
+        />
+      </div>
+
+      {/* Signup Button */}
+      <button
+        onClick={onSignup}
+        disabled={buttonDisabled || loading}
+        className={`w-full rounded-lg py-3 font-semibold transition-all duration-200 ${
+          buttonDisabled || loading
+            ? "bg-gray-700 text-gray-500 cursor-not-allowed"
+            : "bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-500/30"
+        }`}
+      >
+        {loading ? "Processing..." : buttonDisabled ? "Fill all details" : "Sign Up"}
+      </button>
+
+      {/* Divider */}
+      <div className="flex items-center gap-3 my-6">
+        <span className="h-px flex-1 bg-gray-700"></span>
+        <span className="text-gray-500 text-xs uppercase tracking-wide">or</span>
+        <span className="h-px flex-1 bg-gray-700"></span>
+      </div>
+
+      {/* Footer */}
+      <p className="text-center mt-6 text-gray-400 text-sm">
+        Already have an account?{" "}
+        <Link href="/login" className="text-blue-400 hover:underline">
+          Log in
+        </Link>
+      </p>
+    </div>
+  </div>
+);
+
+
+
+
+
 }
