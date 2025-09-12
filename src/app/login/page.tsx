@@ -31,6 +31,14 @@ export default function LoginPage(){
             setLoading(false);
         }
     }
+    const forgotPassword =()=>{
+      try {
+        router.push("/forgot-password");
+      } catch (error:any) {
+        console.log(error.message);
+        toast.error("Something went wrong");
+      }
+    }
     useEffect(()=>{
         if(user.email.length>0 && user.password.length>0){
             setButtonDisabled(false);
@@ -41,34 +49,60 @@ export default function LoginPage(){
     },[user]);
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-            <h1>{loading?"Processing":"Login"}</h1>
-            <hr/>
-            <label htmlFor="email">Email</label>
-            <input 
-            className="border border-gray-300 rounded-lg p-2 mb-4 focus:outline-none focus:border-gray-600"
-            type="text" 
-            id="email" 
-            value={user.email}
-            onChange={(e)=>setUser({...user,email:e.target.value})}
-            placeholder="email"
-            />
-            <label htmlFor="password">Password</label>
-            <input 
-            className="border border-gray-300 rounded-lg p-2 mb-4 focus:outline-none focus:border-gray-600"
-            type="password" 
-            id="password" 
-            value={user.password}
-            onChange={(e)=>setUser({...user,password:e.target.value})}
-            placeholder="password"
-            />
-            <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 cursor-pointer"
-            onClick={onLogin}
-            >
-                Login
-            </button>
-            <Link href="/signup" className="mt-4 text-gray-500 hover:underline">Visit Signup page </Link>
-        </div>
+        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-gray-900 px-4">
+        <div className="w-full max-w-md bg-white/10 backdrop-blur-2xl border border-white/20 shadow-2xl rounded-3xl p-8">
+           <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6">
+            {loading ? "Processing..." : "Welcome Back"}
+         </h1>
+
+         <p className="text-center text-gray-300 mb-8 text-sm">
+          Login to continue to your dashboard
+         </p>
+
+          <label htmlFor="email" className="block text-gray-200 font-medium mb-1">
+          Email
+         </label>
+    <input
+      className="w-full bg-white/20 text-white placeholder-gray-400 border border-white/30 rounded-xl p-3 mb-5 focus:outline-none focus:ring-2 focus:ring-purple-400"
+      type="text"
+      id="email"
+      value={user.email}
+      onChange={(e) => setUser({ ...user, email: e.target.value })}
+      placeholder="Enter your email"
+    />
+
+    <label htmlFor="password" className="block text-gray-200 font-medium mb-1">
+      Password
+    </label>
+    <input
+      className="w-full bg-white/20 text-white placeholder-gray-400 border border-white/30 rounded-xl p-3 mb-6 focus:outline-none focus:ring-2 focus:ring-purple-400"
+      type="password"
+      id="password"
+      value={user.password}
+      onChange={(e) => setUser({ ...user, password: e.target.value })}
+      placeholder="Enter your password"
+    />
+
+    <button
+      className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-xl font-semibold hover:scale-[1.02] hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300"
+      onClick={onLogin}
+    >
+      {loading ? "Please Wait..." : "Login"}
+    </button>
+
+    <p className="text-center mt-6 text-gray-300">
+      <Link href="/forgotpassword" className="text-purple-400 hover:text-purple-300 font-medium">
+        Forgot password?
+      </Link>
+    </p>
+    <p className="text-center mt-6 text-gray-300">
+      Don’t have an account?{" "}
+      <Link href="/signup" className="text-purple-400 hover:text-purple-300 font-medium">
+        Sign up
+      </Link>
+    </p>
+  </div>
+</div>
+
     )
 }
